@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import './tooltips.css';
+import './tooltip.css';
 
 interface TooltipsProps {
   variant?: 'light' | 'black';
@@ -18,9 +18,9 @@ function Tooltip(props: TooltipsProps) {
       let timerId: ReturnType<typeof setTimeout>;
 
       window.addEventListener('mousemove', (event) => {
-        if( (event.target as Element).getAttribute('data-tooltips') !== null)
+        if( (event.target as Element).getAttribute('data-tooltip') !== null)
         {
-          setText((event.target as Element).getAttribute('data-tooltips'));
+          setText((event.target as Element).getAttribute('data-tooltip'));
           
           setCoords({
             left: (event.clientX + 15) + 'px',

@@ -1,50 +1,43 @@
-# React + TypeScript + Vite
+# Tooltip
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This library for tooltips.
 
-Currently, two official plugins are available:
+After installation, you can select an HTML element, for example,  <button>, and specify data-tooltip for it.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+<button data-tooltip="This important button"> Click me </button>
 
-## Expanding the ESLint configuration
+And include <Tooltip /> element in your code.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Full example:
 
-- Configure the top-level `parserOptions` property like this:
+import  { Tooltip } from 'Tooltip';
+//other import
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+export function App(){
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+  //your code
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+  <button data-tooltip="This important button"> Click me </button>
+  <Tooltip variant="black"/>
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+  // your code
+} 
+
+Tooltips have 3 display options:
+
+  
+  1. ###variant='light'
+
+      background color  - light gray;
+      color text -  black;
+
+  2. ###variant='black'
+
+      background color  - dark gray;
+      color text -  white;
+
+  3. Default option:  
+
+      background color = orange,
+      color text = blue
+

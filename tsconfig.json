@@ -1,4 +1,10 @@
 {
+  "compilerOptions": {
+    "declaration": true,
+    "typeRoots": ["./dist/index.d.ts"],
+    "jsx": "react-jsx",
+  },
+  "include": ["./index.ts"],
   "files": [],
   "references": [
     { "path": "./tsconfig.app.json" },
