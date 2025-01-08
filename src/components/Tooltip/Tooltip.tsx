@@ -1,14 +1,32 @@
 import { useEffect, useState } from "react";
-import './tooltip.css';
 
 interface TooltipsProps {
   variant?: 'light' | 'black';
 }
 
+interface TooltipStyle extends React.CSSProperties{
+  backgroundColor: string,
+      color: string,
+      zIndex: number,
+      borderRadius: string,
+      position:  'absolute',
+      padding: string,
+      left: string, 
+      top: string,
+}
+
 function Tooltip(props: TooltipsProps) {
     const {  variant } = props
-    
-    const [coords, setCoords] = useState({left: '0px', top: '0px'});
+    const [ tooltipStyle, setTooltipsStyle] = useState<TooltipStyle>({
+      backgroundColor: 'orange',
+      color: 'rgb(19, 19, 153)',
+      zIndex: 5,
+      borderRadius: '10px',
+      position: 'absolute',
+      padding: '0.5rem 1rem',      
+      left: '0px', 
+      top: '0px',
+    })
 
     const [visibleTip, setVisibleTip] = useState(false);
 
@@ -16,62 +34,73 @@ function Tooltip(props: TooltipsProps) {
 
     useEffect(() => {
       let timerId: ReturnType<typeof setTimeout>;
-
+      
       window.addEventListener('mousemove', (event) => {
         if( (event.target as Element).getAttribute('data-tooltip') !== null)
         {
           setText((event.target as Element).getAttribute('data-tooltip'));
-          
-          setCoords({
-            left: (event.clientX + 15) + 'px',
-            top:  (event.clientY + 15) + 'px',
-          });
-          console.log(text);
-          
+          if (variant === 'black'){
+            setTooltipsStyle({
+              ...tooltipStyle,
+              backgroundColor: 'rgb(34, 34, 34)',
+              color: 'white',
+              left: (event.clientX + 15) + 'px',
+              top:  (event.clientY + 15) + 'px',
+            })
+          } else {
+
+              if (variant === 'light'){
+                setTooltipsStyle({    
+                  ...tooltipStyle,              
+                  backgroundColor: 'gainsboro',
+                  color: 'black',
+                  left: (event.clientX + 15) + 'px',
+                  top:  (event.clientY + 15) + 'px',
+                })
+              } else {
+                setTooltipsStyle({    
+                  ...tooltipStyle,
+                  backgroundColor: 'orange',
+                  color: 'rgb(19, 19, 153)',
+                  left: (event.clientX + 15) + 'px',
+                  top:  (event.clientY + 15) + 'px',
+                })
+              }
+          }
+
           setVisibleTip(true);
-          console.log(coords);                
+
           timerId = setTimeout(() => { setVisibleTip(false)}, 3000)
         }
       });
+
+      //let k = {};
+      // Object.assign(k, clName, coords);
+      //setStyleTooltip(k);
 
       return () => {
         clearTimeout(timerId);
         window.removeEventListener(
           'mousemove',
           (event) => {
-            setCoords({
-                left: (event.clientX - 5) + 'px',
-                top:  (event.clientY - 5) + 'px',
-            });
+            setTooltipsStyle({
+              ...tooltipStyle,
+              left: (event.clientX + 5) + 'px',
+              top:  (event.clientY + 5) + 'px',
+            })
             }
         );
       };
-    }, []);
+    },[variant]);
 
 
     return <>
         { visibleTip ?
-                <div className={variant ? `tooltips-${variant}` : 'tooltips'} style={coords}>
+                <div  style={tooltipStyle}>
                     {text !== null ? text : ''}
                 </div> : '' 
             }
     </> 
-        
-    
-  /*const position = usePosition();
-  if (!text || !position) return null;
-
-  const style = {
-    top: position.top + window.scrollY + position.height + 5,
-    left: position.left + window.scrollX + position.width / 2 - 50,
-  };
-
-  return (
-    <div className="tooltip" style={style}>
-      {text}
-    </div>
-  );*/
-
 };
 
 export { Tooltip };

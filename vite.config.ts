@@ -8,20 +8,23 @@ export default defineConfig({
   build: {
     lib: {
         entry: path.resolve(__dirname, './src/index.ts'),
-        name: 'tooltip',
+        name: 'tooltip-alena-version',
         fileName: (format) => `index.${format}.js`,
     },
+    
     rollupOptions: {
-      external: ['react', 'react-dom'],
+      external: ['react', 'react-dom', 'axios'],
       output: {
         globals: {
           react: 'React',
           'react-dom': 'ReactDOM',
+          'axios': 'axios',
         },
       },
     },
     sourcemap: true,
     emptyOutDir: true,
   },
-  plugins: [react(), dts()],
+  plugins: [react(), dts() ],
+  
 });

@@ -7,7 +7,7 @@ function App() {
     <>
       <div className='App'>
         <button data-tooltip='tooltip - click'>click me</button>
-        <Tooltip variant='black'/>
+        <Tooltip variant='light' />
       </div>
     </>
   )
